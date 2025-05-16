@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+<title>{% block 'titulo' %}{% endblock %}</title>
+</head>
+<body>
+    <nav>
+        <img src="{% static 'img/logo_iris.png' %}" alt="Logo" class="logo">
+        <div class="nav-links">
+            <a href="{% url 'app' %}">Home</a>
+            <a href="{% url 'sobreNos' %}">Sobre nós</a>
+            <a href="">Produtos</a>
+            <a href="{% url 'addUsuario' %}"><button class="btn_cadastrar">Cadastrar</button></a>
+            <a><button class="btn_entrar">Entrar</button></a>
+        </div>
+    </nav>
+
+    <main>
+        {% block 'main' %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; Todos os direitos reservados</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% extends 'template.html' %}
+{% load static %}
+
+{% block 'titulo' %} Editar {% endblock %}
+{% block 'main' %}
+<div class="container mt-5 d-flex align-items-center justify-content-center" >
+    <form method="POST" id="ContainerLogin">
+        {% csrf_token %}
+        <div class="form-group">
+        {{ form.as_p }}
+    </div>
+
+        <input type="submit" value="Editar"  id="btnCadastrar">
+    </form>
+</div>
+{% endblock %}

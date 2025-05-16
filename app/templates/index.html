@@ -1,0 +1,18 @@
+{% extends "template.html"%}
+{% load static %}
+{% block 'titulo'%}Index{% endblock%}
+
+{% block 'main' %}
+
+    <img src="{% static 'img/index-imagem.png' %}" alt="Um perfume da marca Gabrielle Chanel, um batom rosa." class="img-index">
+<div class="main-text">
+    <h1 class="titulo">Seja bem-vinda à Iris,</h1>
+    <p>nossos produtos foram cuidadosamente selecionados para revelar sua essência com <br> elegância e exclusividade.
+        Você merece ser celebrada com arte, cor e luxo. <br>
+    </p>
+    
+    <!-- link de usuarios.html pra não dar erro, a ideia é que linke pra produtos.html-->
+    <a href="{% url 'exibirUsuarios' %}" class="link_produtos">Descubra a beleza que floresce com Iris ></a>
+</div>
+
+{% endblock %}

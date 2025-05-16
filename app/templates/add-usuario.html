@@ -1,0 +1,12 @@
+{% extends "template.html" %}
+{% load static %}
+{% block 'titulo' %} Novo Usuario {% endblock %}
+
+{% block 'main' %}
+    <h1>Novo usuario</h1>
+   <form method="post" action="{% url 'addUsuario' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Cadastrar</button>
+   </form>
+{% endblock %}
