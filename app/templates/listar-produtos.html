@@ -2,7 +2,6 @@
 
 {% load static %}
 
-
 {% block titulo %} Produtos {% endblock %}
 
 {% block 'main' %}
@@ -13,14 +12,10 @@
             <th>Imagem</th>
             <th colspan= "2">Ações</th>
         </tr>
-        {% for produto in listarProdutos %}
-            <tr id="trProd">
-                <td>{{produto.nomeProduto}}</td>
-                <td><img src="/media/{{ produto.imagemProduto }}"  alt=""  style="width: 100px; height: auto;"></td>
-                <td><a href="{% url 'excluirProduto' produto.id %}"> <button  id="btnExcluir"> Excluir </button> </a></td>
-               <td><a href="{% url 'editarProduto' produto.id %}"> <button id="btnEditar"> Editar</button> </a></td> 
-
-            </tr>
+        {% for prod in produtos %}
+	        <img src="{{prod.image}}" width="50px">
+	        <h3>{{prod.title}} </h3>
+	        <p>R$ {{prod.price}}</p>
         {% endfor %}
     </table>
 

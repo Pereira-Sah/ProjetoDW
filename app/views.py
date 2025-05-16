@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from app.models import Usuario, Produto
 from app.forms import formUsuario, formProduto
+import requests
 
 def exibirUsuarios(request):
     usuarios = Usuario.objects.all().values()
@@ -39,16 +40,13 @@ def editarUsuario(request, id_usuario):
             return redirect("exibirUsuarios")
     return render(request, "editar-usuario.html", {'form': formUser})
 
-
 def cadastrarProduto(request):
     if request.method == 'POST':
         formProduct = formProduto(request.POST, request.FILES)
         if formProduct.is_valid():
             formProduct.save()
             return redirect("listarProdutos")
-        
     return render(request, "cadastrar-produto.html", {'form':formProduto})
-
 
 def listarProdutos(request):
     produtos = Produto.objects.all().values()
@@ -70,6 +68,10 @@ def editarProduto(request, id_produto):
         
     return render(request, "editar-produto.html", {'form': formProd})
 
+# def cardsProdutos(request):
+#     produtos = Produto.objects.all().values()
+#     return render(request, "cards-produtos.html", {'listProdutos': produtos})
+
 def cardsProdutos(request):
-    produtos = Produto.objects.all().values()
-    return render(request, "cards-produtos.html", {'listProdutos': produtos})
+    produtosapi = requests.get("https://fakestoreapi.com/products").json()
+    return render(request,"listar-produtos.html",{'produtos':produtosapi})
