@@ -52,7 +52,7 @@ def cadastrarProduto(request):
 
 def listarProdutos(request):
     produtos = Produto.objects.all().values()
-    return render(request, "listar-produtos.html", {'listProdutos': produtos})
+    return render(request, "listar-produtos.html", {'listarProdutos': produtos})
 
 def excluirProduto(request, id_produto):
     produto = Produto.objects.get(id=id_produto)
