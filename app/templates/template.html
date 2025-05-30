@@ -16,9 +16,9 @@
         <div class="nav-links">
             <a href="{% url 'app' %}">Home</a>
             <a href="{% url 'sobreNos' %}">Sobre nós</a>
-            <a href="">Produtos</a>
+            <a href="{% url 'listarProdutos' %}">Produtos</a>
             <a href="{% url 'addUsuario' %}"><button class="btn_cadastrar">Cadastrar</button></a>
-            <a><button class="btn_entrar">Entrar</button></a>
+            <a href="{% url 'login' %}"><button class="btn_entrar">Entrar</button></a>
         </div>
     </nav>
 

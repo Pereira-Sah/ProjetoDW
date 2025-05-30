@@ -1,8 +1,10 @@
+from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-from app.models import Usuario, Produto
-from app.forms import formUsuario, formProduto
+
+from app.models import Usuario, Produto, Categoria
+from app.forms import formUsuario, formProduto, formLogin
 
 import requests
 import io, urllib, base64
@@ -13,10 +15,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import CategoriaSerializer
 
-def exibirUsuarios(request):
-    usuarios = Usuario.objects.all().values()
-    return render(request, "usuarios.html", {'listUsuarios': usuarios})
-
 def index(request):
     template = loader.get_template("index.html")
     return HttpResponse(template.render())
@@ -24,6 +22,10 @@ def index(request):
 def sobreNos(request):
     template = loader.get_template("sobre-nos.html")
     return HttpResponse(template.render())
+
+def exibirUsuarios(request):
+    usuarios = Usuario.objects.all().values()
+    return render(request, "usuarios.html", {'listUsuarios': usuarios})
 
 def addUsuario(request):
     formUser = formUsuario(request.POST or None)
@@ -41,33 +43,31 @@ def excluirUsuario(request, id_usuario):
 def editarUsuario(request, id_usuario):
     usuario = Usuario.objects.get(id=id_usuario)
     formUser = formUsuario(request.POST or None, instance=usuario)
-
     if request.POST:
         if formUser.is_valid():
             formUser.save()
             return redirect("exibirUsuarios")
     return render(request, "editar-usuario.html", {'form': formUser})
 
-def fazerLogin(request):
-    formL = FormLogin(request.POST or None)
-    if request.method == 'POST':
-        if formL.is_valid():
-            _email = formL.cleaned_data.get('email')
-            _senha = formL.cleaned_data.get('senha')
+def login(request):
+    frmLogin = formLogin(request.POST or None)
+    if request.POST:
+        if frmLogin.is_valid():
+            _email = frmLogin.cleaned_data.get('email')
+            _senha = frmLogin.cleaned_data.get('senha')
             try:
-                usuarioL = Login.objects.get(email=_email, senha=_senha)
-                if usuarioÇ is not None:
-                    # DEFINE A DURAÇÃO DA SESSÃO COMO 30 SEGUNDOS
-                    request.session.set_expiry(timedelta(seconds=30))
-                    request.session['email']=_email
-                    return redirect('app')
-            except Login.DoesNotExist:
-                return render(request, 'login.html', {'error_message': 'Credenciais Inválidas. Por favor, tente novamente'})
-    context = {
-        'formLogin' : formL
-    }
-    return render(request, 'login.html', context)
-
+                userLogin = Usuario.objects.get(email=_email,senha= _senha)
+                if userLogin is not None:
+                    request.session.set_expiry(timedelta(seconds=600))
+                   
+                    request.session['email'] = _email
+                    tempo_sessao = timedelta(seconds=600)
+                    tempo_sessao_segundos = tempo_sessao.total_seconds()
+                    request.session['tempo_sessao_segundos '] =  tempo_sessao_segundos
+                    return redirect("app")
+            except Usuario.DoesNotExist:
+                return render(request, "login.html")
+    return render(request, "login.html", {'form': frmLogin})
 
 def cadastrarProduto(request):
     if request.method == 'POST':
@@ -126,7 +126,7 @@ def getCategorias(request):
 
     if request.method == 'GET':
         categorias = Categoria.objects.all()
-        serializer = categoriaSerializer(categorias, many=True)
+        serializer = CategoriaSerializer(categorias, many=True)
         return Response(serializer.data)
     
     elif request.method == 'POST':
