@@ -12,12 +12,11 @@ a, p, h1, button {
 }
 
 main {
-    padding-top: 0;
+    padding-top: 80px; /* ou o valor que preferir */
     margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 40px 100px;
+    min-height: 70vh;
+    width: 100%;
+    display: block; /* Remova o flex! */
 }
 
 nav {
@@ -47,18 +46,7 @@ nav {
     margin-left: 40px;
     color: #D97D5B;
     text-decoration: none;
-    font-size: 22px;
-}
-
-.btn_cadastrar {
-    margin-right: -25px;
-    background-color: #F9FFFE; 
-    color: #D97D5B;
-    padding: 10px;
-    font-size: 22px;
-    border-radius: 22px;
-    border: #D97D5B 2px solid;
-    cursor: pointer;
+    font-size: 20px;
 }
 
 .btn_entrar {
@@ -66,8 +54,19 @@ nav {
     color: #F9FFFE;
     margin-right: 45px; 
     padding: 10px;
-    font-size: 22px;
-    border-radius: 22px;
+    font-size: 20px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn_cadastrar {
+    background-color: #D97D5B;
+    color: #F9FFFE;
+    margin-right: 45px; 
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 20px;
     border: none;
     cursor: pointer;
 }
@@ -85,13 +84,17 @@ nav {
     text-align: center;
 }
 
-.img-index{
-    width: 34em;
-    height: 32em;
+.img-index {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    display: block;
+    margin: 0 auto 1.5rem auto;
+    border-radius: 25px;
 }
 
-.main-text{
-    font-size: 26px;
+.main-text {
+    font-size: 18px;
     color: #F9FFFE;
     text-align: left;
 }
@@ -105,4 +108,196 @@ footer {
     background-color: #F9FFFE; 
     color: #D97D5B;
     text-align: center;
+}
+
+#Section-posts{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#Section-posts h1{
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-family: "Cherry Bomb One", system-ui !important;
+    letter-spacing: 2px;
+    color: #C3E6E2;
+    text-shadow:
+    -1px -1px 0 #43706b,
+     1px -1px 0 #43706b,
+    -1px  1px 0 #43706b,
+     1px  1px 0 #43706b;
+}
+
+
+#blog-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    width: 100%;
+    max-width: 1200px;   
+}
+
+.blog-card{
+    background-color: #f7e2ddf5;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    border: 5px solid #FF9394;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+.blog-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(172, 81, 96, 0.534);
+    cursor: pointer;
+}
+
+.blog-image{
+    position: relative;
+    overflow: hidden;
+    height: 300px;
+}
+
+.blog-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.blog-image:hover img{
+    transform: scale(1.1);
+}
+
+.blog-price{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.precoProduto{
+    font-size: 2em;
+    font-weight: 600;
+    color: #d8e6b1;
+    text-shadow:
+    -1px -1px 0 #6f7c4b,
+     1px -1px 0 #6f7c4b,
+    -1px  1px 0 #6f7c4b,
+     1px  1px 0 #6f7c4b;
+     font-family: 'Cherry Bomb One', system-ui !important;
+     letter-spacing: 2px;
+    }
+
+.blog-data{
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background-color: #f8b1b1;
+    color: #fff;
+    padding: 5px 10px;  
+    border-radius: 5px;
+    font-size: 1.3em;
+}
+
+.blog-content{
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-title{
+    font-size: 1.5em;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    transition: color 0.3s ease;
+    text-align: start;
+    color: #C3E6E2;
+    text-shadow:
+    -1px -1px 0 #43706b,
+     1px -1px 0 #43706b,
+    -1px  1px 0 #43706b,
+     1px  1px 0 #43706b;
+     max-width: 180px;
+    }
+
+.blog-title:hover{
+    color: #e5f0ee;
+}
+
+.blog-description{
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: auto;
+    text-align: start;
+}
+
+.blog-footer{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.blog-footer img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.blog-author{
+    font-size: 14px;
+    color: #5f5b5b;
+}
+
+.read-more{
+    background-color: #f8b1b1;
+    border-color: #FF9394 ;
+    text-decoration: none;
+    color: #000;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.read-more:hover{
+    background-color: rgb(248, 154, 131) ;
+}
+
+.fas{
+    color: #FFEBB8;
+    text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
+}
+
+.blog-categoria{
+    height: 30px;
+    margin-top: 1em;
+}
+
+.blog-categoria span {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 2px solid #FF9394;
+    background-color: #ffb7a540;
+    color: black;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 5px;
+    transition: background-color 0.3s ease;
 }

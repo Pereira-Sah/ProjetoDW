@@ -1,19 +1,23 @@
 {% extends "template.html" %}
 {% load static %}
 
-{% block 'titulo'%}Iris{% endblock %}
+{% block 'titulo'%}Iris Beauty{% endblock %}
 
 {% block 'main' %}
-
-    <img src="{% static 'img/index-imagem.png' %}" alt="Um perfume da marca Gabrielle Chanel, um batom rosa." class="img-index">
-<div class="main-text">
-    <h1 class="titulo">Seja bem-vinda à Iris,</h1>
-    <p>nossos produtos foram cuidadosamente selecionados para revelar sua essência com <br> elegância e exclusividade.
-        Você merece ser celebrada com arte, cor e luxo. <br>
-    </p>
-    
-    <!-- link de usuarios.html pra não dar erro, a ideia é que linke pra produtos.html-->
-    <a href="{% url 'exibirUsuarios' %}" class="link_produtos">Descubra a beleza que floresce com Iris ></a>
+<div class="container d-flex align-items-center justify-content-center flex-column flex-md-row" style="min-height: 70vh;">
+    <img src="{% static 'img/cosmeticos.jpg' %}" alt="Um perfume da marca Gabrielle Chanel, um batosa." class="img-index mb-4 mb-md-0" style="max-width: 350px; width: 100%; height: auto;">
+    <div class="main-text ms-md-5 mt-4 mt-md-0 text-center text-md-start">
+        <h1 class="titulo">Seja bem-vinda à Iris,</h1>
+        <p>
+            Nossos produtos foram cuidadosamente selecionados para revelar sua essência com<br>
+            elegância, exclusividade e um toque de sofisticação.<br><br>
+            Acreditamos que a beleza vai além da aparência — é presença, é identidade, é arte.<br>
+            Cada item da Íris foi criado para transformar o autocuidado em um ritual de expressão<br>
+            e para destacar aquilo que há de mais autêntico em cada pessoa.<br><br>
+            Ao explorar nossos produtos, descubra texturas envolventes, fragrâncias marcantes e<br>
+            tonalidades que celebram a diversidade da beleza real.<br>
+        </p>
+        <a href="{% url 'addUsuario' %}"><button class="btn_cadastrar">Cadastre-se</button></a>
+    </div>
 </div>
-
 {% endblock %}

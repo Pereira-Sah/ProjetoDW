@@ -1,12 +1,23 @@
 {% extends "template.html" %}
 {% load static %}
-{% block 'titulo' %} Novo Usuario {% endblock %}
+{% block 'titulo' %} Novo Usuário {% endblock %}
 
 {% block 'main' %}
-    <h1>Novo usuario</h1>
-   <form method="post" action="{% url 'addUsuario' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Cadastrar</button>
-   </form>
+<div class="container mt-5" style="max-width: 400px;">
+    <div class="card shadow">
+        <div class="card-body">
+            <h3 class="card-title text-center mb-4">Cadastro</h3>
+            <form method="POST" action="{% url 'addUsuario' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </div>
+            </form>
+            <div class="text-center mt-3">
+                Já tem cadastro? <a href="{% url 'login' %}">Faça login</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

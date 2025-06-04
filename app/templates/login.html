@@ -2,18 +2,22 @@
 
 {% block 'titulo' %} Login {% endblock %}
 
-{% block conteudo %}
-
-<div class="container w-50">
-    <h1 class="text-center">Área Restrita</h1>
-    <form action="{% url 'formLogin' %}" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div class="d-grid gap-2">
-            <input type="submit" value="Entrar" class="btn-sucess" expand="block">
+{% block 'main' %}
+<div class="container mt-5" style="max-width: 400px;">
+    <div class="card shadow">
+        <div class="card-body">
+            <h3 class="card-title text-center mb-4">Área Restrita</h3>
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success">Entrar</button>
+                </div>
+            </form>
+            <div class="text-center mt-3">
+                Não tem cadastro? <a href="{% url 'addUsuario' %}">Cadastre-se</a>
+            </div>
         </div>
-    </form>
-    <br>
+    </div>
 </div>
-
 {% endblock %}

@@ -4,6 +4,8 @@ class Usuario(models.Model):
     nome = models.CharField(max_length=100)
     email = models.EmailField()
     senha = models.CharField(max_length=16)
+    cep = models.CharField(max_length=9)
+    numero_residencia = models.CharField(max_length=10)
 
 class Login(models.Model):
     usuario = models.CharField(max_length=255)
@@ -23,4 +25,3 @@ class Produto(models.Model):
     imagemProduto = models.ImageField(upload_to='imagens/')
     qtdeEstoque = models.IntegerField()
     categoriaProduto = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, blank=True)
-
