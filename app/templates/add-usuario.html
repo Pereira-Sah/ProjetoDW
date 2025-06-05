@@ -7,17 +7,69 @@
     <div class="card shadow">
         <div class="card-body">
             <h3 class="card-title text-center mb-4">Cadastro</h3>
-            <form method="POST" action="{% url 'addUsuario' %}">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
-                </div>
-            </form>
+          <form method="post" action="{% url 'addUsuario' %}" id="ContainerLogin">
+        {% csrf_token %}
+        {% comment %} <div class="form-group"> {% endcomment %}
+
+    {{ form.nome }}
+    {{ form.email }}
+    {{ form.senha }}
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.CEP }}
+        </div>
+        <div class="col-md-6">
+            {{ form.logradouro }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.bairro }}
+        </div>
+        <div class="col-md-6">
+            {{ form.localidade }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.estado }}
+        </div>
+        <div class="col-md-6">
+            {{ form.numero_residencia }}
+        </div>
+    </div>         
+        <input type="submit" value="Cadastrar" id="btnCadastrar">
+        {% comment %} </div> {% endcomment %}
+    </form>
             <div class="text-center mt-3">
                 Já tem cadastro? <a href="{% url 'login' %}">Faça login</a>
             </div>
         </div>
     </div>
 </div>
+<script>
+
+    function buscaCep(cep){
+        fetch('https://viacep.com.br/ws/'+ cep + '/json/')
+        .then(response => {
+            if(!response.ok){
+                console.log("Erro de Conexão")
+            }
+        return response.json()
+        } )
+        .then(data => {
+            console.log(data)
+            logradouro.value = data.logradouro
+            bairro.value = data.bairro
+            localidade.value = data.localidade
+            estado.value = data.estado
+
+        })
+        .catch(error => {
+            console.log("Erro", error)
+        })
+    }
+
+</script>
 {% endblock %}

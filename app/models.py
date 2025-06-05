@@ -1,11 +1,14 @@
 from django.db import models
-
 class Usuario(models.Model):
     nome = models.CharField(max_length=100)
     email = models.EmailField()
-    senha = models.CharField(max_length=16)
-    cep = models.CharField(max_length=9)
-    numero_residencia = models.CharField(max_length=10)
+    senha = models.CharField(max_length=100)
+    CEP = models.CharField(max_length=9, default='00000-000')
+    logradouro = models.CharField(max_length=100, default='Não informado')
+    bairro = models.CharField(max_length=100, default='Não informado')
+    localidade = models.CharField(max_length=100, default='Não informado')
+    estado = models.CharField(max_length=2, default='XX')
+    numero_residencia = models.CharField(max_length=10, default='0')
 
 class Login(models.Model):
     usuario = models.CharField(max_length=255)

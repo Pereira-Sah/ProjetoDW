@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-
+from django.contrib import messages
 from app.models import Usuario, Produto, Categoria
 from app.forms import formUsuario, formProduto, formLogin
 
@@ -28,11 +28,14 @@ def exibirUsuarios(request):
     return render(request, "usuarios.html", {'listUsuarios': usuarios})
 
 def addUsuario(request):
-    formUser = formUsuario(request.POST or None)
+    formUser = formUsuario(request.POST or None)        
     if request.POST:
         if formUser.is_valid():
             formUser.save()
+            messages.success(request, 'Usuário cadastrado com sucesso!')
             return redirect("exibirUsuarios")
+        else:
+            messages.error(request, 'Erro ao cadastrar usuário. Verifique os dados e tente novamente.')
     return render(request, "add-usuario.html", {'form':formUser})
 
 def excluirUsuario(request, id_usuario):
@@ -88,7 +91,7 @@ def excluirProduto(request, id_produto):
 
 def editarProduto(request, id_produto):
     produto = Produto.objects.get(id=id_produto)
-    formProd = formProduto(request.POST or None, instance=produto)
+    formProd = formProduto(request.POST or None, request.FILES or None,instance=produto)
 
     if request.POST:
         if formProd.is_valid():
@@ -98,8 +101,8 @@ def editarProduto(request, id_produto):
     return render(request, "editar-produto.html", {'form': formProd})
 
 def cardsProdutos(request):
-    produtosapi = requests.get("https://fakestoreapi.com/products").json()
-    return render(request,"listar-produtos.html",{'produtos':produtosapi})
+    listProdutos = requests.get("https://fakestoreapi.com/products").json()
+    return render(request, "cards-produtos.html", {'produtos': listProdutos})
 
 def grafico(request):
     produtos = Produto.objects.all()
