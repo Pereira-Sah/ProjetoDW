@@ -1,0 +1,25 @@
+{% extends 'template.html' %}
+
+{% load static %}
+
+
+{% block titulo %} Dashboard {% endblock %}
+
+{% block 'main' %}
+
+    <div class="containerDashboard">
+    <h1>Bem-vindo(a)! {{email}} </h1>
+
+    <div class="btn">
+      <a href="{% url 'exibirUsuarios' %}"><button id="btnDashboard" class="btn ">Usuários</button></a>
+      <a href="{% url 'listarProdutos' %}"><button id="btnDashboard" class="btn ">Produtos</button></a>
+      <a href="{% url 'compras' %}"><button id="btnDashboard" class="btn ">Minhas compras</button></a>
+          <a href="{% url 'grafico' %}"><button id="btnDashboard" class="btn " >Visulizar Gráfico</button></a>
+
+
+      
+   </div>
+
+      
+   </div>
+{% endblock %}
