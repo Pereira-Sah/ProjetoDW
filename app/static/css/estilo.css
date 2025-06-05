@@ -3,18 +3,27 @@
 body {
     margin: 0;
     padding-top: 80px;
-    background-color: #ffe8bf;
+    background-color: #fcd48f;
 }
 
-a, p, h1, button {
+a, p, button {
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
-    font-style: normal;
+}
+
+h1, h2{
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+}
+
+.main-text p {
+    font-size: 20px;
 }
 
 main {
-    margin-top: 40px;
+    margin-top: 30px;
     min-height: 70vh;
     width: 100%;
     display: block;
@@ -73,6 +82,18 @@ nav {
     cursor: pointer;
 }
 
+.img-index {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    display: block;
+    border-radius: 25px;
+}
+
+.mt-custom {
+    margin-top: 120px;
+}
+
 /* Sobre Nos */
 
 .link_produtos {
@@ -88,13 +109,13 @@ nav {
     text-align: center;
 }
 
-.img-index {
+.logo_oficial {
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
     height: auto;
     display: block;
-    margin: 0 auto 1.5rem auto;
     border-radius: 25px;
+    margin: 30px;
 }
 
 .main-text {
@@ -114,22 +135,17 @@ footer {
     text-align: center;
 }
 
-.read-more{
-    background-color: #f8b1b1;
-    border-color: #FF9394 ;
-    text-decoration: none;
-    color: #000;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
+.nav-links a:hover{
+    color: #ba4cff;
+    font-weight: 500;
+    transition: color 1.2s;
 }
 
 .btn_entrar:hover,
 .btn_cadastrar:hover,
 .link_produtos:hover,
-.read-more:hover {
-    background-color: #D97D5B;
+.btn_comprar:hover{
+    background-color: #ba4cff;
     color: #F9FFFE;
     transition: background-color 0.4s, color 0.4s;
 }
@@ -153,7 +169,7 @@ h2{
 .card {
     border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    border: 3px solid #D97D5B;
+    border: 3px solid #ffb79d;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -190,9 +206,9 @@ h2{
     font-weight: bold;
 }
 
-.card-category {
-    font-size: 0.95em;
-    color: #5f5b5b;
+.card-category span{
+    font-size: 1em;
+    font-weight: bold;
 }
 
 .card-descripition {
@@ -205,11 +221,27 @@ h2{
     margin-top: 8px;
 }
 
+.btn_comprar{
+    background-color: #cf83fe;
+    color: #ffffff;
+    padding: 10px 15px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 18px;
+    text-decoration: none;
+}
+
 @media (max-width: 600px) {
     nav {
         height: 56px;
     }
     main {
         padding-top: 70px;
+    }
+}
+
+@media (max-width: 600px) {
+    .mt-custom {
+        margin-top: 40px;
     }
 }
