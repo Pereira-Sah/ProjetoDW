@@ -1,33 +1,42 @@
 {% extends "template.html" %}
-{% load static%}
+{% load static %}
 
 {% block 'main' %}
-<h1>Produtos da API</h1>
-<div class="container">
-    {% for produto in produtos %}
-        <div class="card">
-            <img src="{{ produto.image }}" alt="{{ produto.title }}">
-            <div class="card-body">
-                <div class="card-title">{{ produto.title|truncatechars:50 }}</div>
-                <div class="card-price">R$ {{ produto.price }}</div>
-                <div class="card-category">{{ produto.category }}</div>
-                <div class="card-descripition">{{ produto.description }}</div>
-                <div class="card-rating">
-    {% with rate=produto.rating.rate %}
-        {% for i in "12345" %}
-            {% if forloop.counter <= rate %}
-                <i class="fas fa-star" style="color: gold;"></i>
-            {% elif forloop.counter0 < rate %}
-                <i class="fas fa-star-half-alt" style="color: gold;"></i>
-            {% else %}
-                <i class="far fa-star" style="color: gold;"></i>
-            {% endif %}
-        {% endfor %}
-        <span style="margin-left: 5px;">({{ produto.rating.count }} avaliações)</span>
-    {% endwith %}
-</div>
-            </div>
+<div class="pt-5" style="padding-top: 80px;">
+    <div class="container">
+        <h2>Produtos da API</h2>
+        <div class="row">
+            {% for produto in produtos %}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ produto.image }}" alt="{{ produto.title }}" class="card-img-top">
+                        <div class="card-body d-flex flex-column">
+                            <div class="card-title">{{ produto.title|truncatechars:50 }}</div>
+                            <div class="card-price">R$ {{ produto.price }}</div>
+                            <div class="card-category"><span>Categoria: </span>{{ produto.category }}</div>
+                            <div class="card-descripition text-truncate" style="max-height: 3em;">{{ produto.description }}</div>
+                            <div class="card-rating mt-auto">
+                                {% with rate=produto.rating.rate %}
+                                    {% for i in "12345" %}
+                                        {% if forloop.counter <= rate %}
+                                            <i class="fas fa-star" style="color: gold;"></i>
+                                        {% elif forloop.counter0 < rate %}
+                                            <i class="fas fa-star-half-alt" style="color: gold;"></i>
+                                        {% else %}
+                                            <i class="far fa-star" style="color: gold;"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <span style="margin-left: 5px;">({{ produto.rating.count }} avaliações)</span>
+                                {% endwith %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
+    </div>
+
+    <!-- Div para espaçamento no final da página -->
+    <div style="height: 80px;"></div>
 </div>
 {% endblock %}

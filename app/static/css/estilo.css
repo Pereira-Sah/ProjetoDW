@@ -1,7 +1,9 @@
+/* Template */
+
 body {
     margin: 0;
-    padding-top: 60px;
-    background-color: #d4a9f4;
+    padding-top: 80px;
+    background-color: #ffe8bf;
 }
 
 a, p, h1, button {
@@ -12,11 +14,10 @@ a, p, h1, button {
 }
 
 main {
-    padding-top: 80px; /* ou o valor que preferir */
-    margin-top: 20px;
+    margin-top: 40px;
     min-height: 70vh;
     width: 100%;
-    display: block; /* Remova o flex! */
+    display: block;
 }
 
 nav {
@@ -29,6 +30,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    z-index: 1000;
 }
 
 .logo {
@@ -44,13 +46,13 @@ nav {
 
 .nav-links a {
     margin-left: 40px;
-    color: #D97D5B;
+    color: #cf83fe;
     text-decoration: none;
     font-size: 20px;
 }
 
 .btn_entrar {
-    background-color: #D97D5B;
+    background-color: #cf83fe;
     color: #F9FFFE;
     margin-right: 45px; 
     padding: 10px;
@@ -61,7 +63,7 @@ nav {
 }
 
 .btn_cadastrar {
-    background-color: #D97D5B;
+    background-color: #cf83fe;
     color: #F9FFFE;
     margin-right: 45px; 
     padding: 10px;
@@ -71,9 +73,11 @@ nav {
     cursor: pointer;
 }
 
+/* Sobre Nos */
+
 .link_produtos {
     display: inline-block;
-    background-color: #D97D5B;
+    background-color: #f59a0a;
     color: #F9FFFE;
     font-size: 22px;
     padding: 20px 80px;
@@ -106,159 +110,8 @@ footer {
     height: 70px;
     border-radius: 15px 15px 0px 0px;
     background-color: #F9FFFE; 
-    color: #D97D5B;
+    color: #f59a0a;
     text-align: center;
-}
-
-#Section-posts{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-#Section-posts h1{
-    font-size: 2.5em;
-    text-align: center;
-    margin-bottom: 10px;
-    font-weight: 600;
-    font-family: "Cherry Bomb One", system-ui !important;
-    letter-spacing: 2px;
-    color: #C3E6E2;
-    text-shadow:
-    -1px -1px 0 #43706b,
-     1px -1px 0 #43706b,
-    -1px  1px 0 #43706b,
-     1px  1px 0 #43706b;
-}
-
-
-#blog-container{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 24px;
-    width: 100%;
-    max-width: 1200px;   
-}
-
-.blog-card{
-    background-color: #f7e2ddf5;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s, box-shadow 0.3s;
-    display: flex;
-    flex-direction: column;
-    border: 5px solid #FF9394;
-    font-family: 'Poppins', sans-serif;
-
-}
-
-.blog-card:hover{
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(172, 81, 96, 0.534);
-    cursor: pointer;
-}
-
-.blog-image{
-    position: relative;
-    overflow: hidden;
-    height: 300px;
-}
-
-.blog-image img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.blog-image:hover img{
-    transform: scale(1.1);
-}
-
-.blog-price{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.precoProduto{
-    font-size: 2em;
-    font-weight: 600;
-    color: #d8e6b1;
-    text-shadow:
-    -1px -1px 0 #6f7c4b,
-     1px -1px 0 #6f7c4b,
-    -1px  1px 0 #6f7c4b,
-     1px  1px 0 #6f7c4b;
-     font-family: 'Cherry Bomb One', system-ui !important;
-     letter-spacing: 2px;
-    }
-
-.blog-data{
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background-color: #f8b1b1;
-    color: #fff;
-    padding: 5px 10px;  
-    border-radius: 5px;
-    font-size: 1.3em;
-}
-
-.blog-content{
-    padding: 20px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.blog-title{
-    font-size: 1.5em;
-    font-weight: 600;
-    line-height: 1.4;
-    margin-bottom: 15px;
-    transition: color 0.3s ease;
-    text-align: start;
-    color: #C3E6E2;
-    text-shadow:
-    -1px -1px 0 #43706b,
-     1px -1px 0 #43706b,
-    -1px  1px 0 #43706b,
-     1px  1px 0 #43706b;
-     max-width: 180px;
-    }
-
-.blog-title:hover{
-    color: #e5f0ee;
-}
-
-.blog-description{
-    font-size: 1em;
-    line-height: 1.6;
-    margin-bottom: auto;
-    text-align: start;
-}
-
-.blog-footer{
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.blog-footer img{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.blog-author{
-    font-size: 14px;
-    color: #5f5b5b;
 }
 
 .read-more{
@@ -272,8 +125,13 @@ footer {
     transition: background-color 0.3s ease;
 }
 
-.read-more:hover{
-    background-color: rgb(248, 154, 131) ;
+.btn_entrar:hover,
+.btn_cadastrar:hover,
+.link_produtos:hover,
+.read-more:hover {
+    background-color: #D97D5B;
+    color: #F9FFFE;
+    transition: background-color 0.4s, color 0.4s;
 }
 
 .fas{
@@ -285,19 +143,73 @@ footer {
      1px  1px 0 #000;
 }
 
-.blog-categoria{
-    height: 30px;
-    margin-top: 1em;
+/* Cards */
+
+h2{
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-.blog-categoria span {
-    display: inline-block;
-    padding: 5px 10px;
-    border: 2px solid #FF9394;
-    background-color: #ffb7a540;
-    color: black;
-    border-radius: 5px;
-    font-size: 14px;
-    margin-right: 5px;
-    transition: background-color 0.3s ease;
+.card {
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    border: 3px solid #D97D5B;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin-bottom: 24px;
+}
+
+.card img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    background: #fff;
+}
+
+.card-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.card-title {
+    font-size: 1.2em;
+    color: #000;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-price {
+    font-size: 1.1em;
+    color: #cf83fe;
+    font-weight: bold;
+}
+
+.card-category {
+    font-size: 0.95em;
+    color: #5f5b5b;
+}
+
+.card-descripition {
+    font-size: 0.95em;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.card-rating {
+    margin-top: 8px;
+}
+
+@media (max-width: 600px) {
+    nav {
+        height: 56px;
+    }
+    main {
+        padding-top: 70px;
+    }
 }
