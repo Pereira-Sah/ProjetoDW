@@ -3,9 +3,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib import messages
-from app.models import Usuario, Produto, Categoria
-from app.forms import formUsuario, formProduto, formLogin
-
+from app.models import Usuario, Produto, Categoria, Venda
+from app.forms import formUsuario, formProduto, formLogin, formCheckout
+from django.contrib.auth.hashers import make_password
 import requests
 import io, urllib, base64
 import matplotlib.pyplot as plt
@@ -27,13 +27,18 @@ def exibirUsuarios(request):
     usuarios = Usuario.objects.all().values()
     return render(request, "usuarios.html", {'listUsuarios': usuarios})
 
+        
 def addUsuario(request):
     formUser = formUsuario(request.POST or None)        
     if request.POST:
         if formUser.is_valid():
-            formUser.save()
-            messages.success(request, 'Usuário cadastrado com sucesso!')
-            return redirect("exibirUsuarios")
+            email = formUser.cleaned_data['email']
+            if Usuario.objects.filter(email=email).exists():
+             messages.error(request, 'Este e-mail já está cadastrado.')
+            else:
+                 formUser.save()
+                 messages.success(request, 'Usuário cadastrado com sucesso!')
+                 return redirect("login")
         else:
             messages.error(request, 'Erro ao cadastrar usuário. Verifique os dados e tente novamente.')
     return render(request, "add-usuario.html", {'form':formUser})
@@ -67,7 +72,7 @@ def login(request):
                     tempo_sessao = timedelta(seconds=600)
                     tempo_sessao_segundos = tempo_sessao.total_seconds()
                     request.session['tempo_sessao_segundos '] =  tempo_sessao_segundos
-                    return redirect("app")
+                    return redirect("dashboard")
             except Usuario.DoesNotExist:
                 return render(request, "login.html")
     return render(request, "login.html", {'form': frmLogin})
@@ -104,10 +109,22 @@ def cardsProdutos(request):
     listProdutos = requests.get("https://fakestoreapi.com/products").json()
     return render(request, "cards-produtos.html", {'produtos': listProdutos})
 
+def dashboard(request):
+    _email = request.session.get("email")
+    tempo_sessao = request.session.get("tempo_sessao_segundos")
+    if _email is None:
+            messages.warning(request, 'Você precisa fazer login para acessar o dashboard.')
+            return render(request, "index.html")
+    if tempo_sessao and tempo_sessao > timedelta(seconds=600) :
+        messages.warning(request, 'Sua sessão expirou. Por favor, faça login novamente.')
+        return render(request, "index.html")
+    else:
+        return render(request, "dashboard.html", {'email' : _email})
+
 def grafico(request):
     produtos = Produto.objects.all()
-    nome = [produto.nome for produto in produtos]
-    estoque = [produto.estoque for produto in produtos]
+    nome = [produto.nomeProduto for produto in produtos]
+    estoque = [produto.qtdeEstoque for produto in produtos]
 
     fig, ax = plt.subplots()
     ax.bar(nome, estoque)
@@ -159,3 +176,58 @@ def getCategoriaID(request, id_categoria):
     elif request.method == 'DELETE':
         categoria.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+def checkout(request, produto_id):
+    if not request.session.get("email"):
+        return redirect("login")
+
+    produto = Produto.objects.get(id=produto_id)
+    cliente = Usuario.objects.get(email=request.session.get("email"))
+
+    if request.method == 'POST':
+        form = formCheckout(request.POST)
+
+        if form.is_valid():
+            venda = Venda(
+                cliente=cliente,
+                produto=produto,
+                preco_venda=produto.precoProduto,
+                numero_cartao=form.cleaned_data.get('numero_cartao'),
+                validade=form.cleaned_data.get('validade'),
+                cvv=form.cleaned_data.get('cvv'),
+            )
+            venda.save()
+            messages.success(request, 'Compra realizada com sucesso!')
+            # Atualiza o estoque do produto 
+            produto.qtdeEstoque -= 1
+            produto.save()
+            return redirect("compras")
+        else:
+            messages.error(request, 'Erro ao processar o pagamento. Verifique os dados e tente novamente.')
+            return render(request, "checkout.html", {
+                "produto": produto,
+                "cliente": cliente,
+                "form": form
+            })
+    else:
+        form = formCheckout()
+
+    return render(request, "checkout.html", {
+        "produto": produto,
+        "cliente": cliente,
+        "form": form
+    })
+
+
+def compras(request):
+    if not request.session.get("email"):
+        messages.warning(request, 'Você precisa fazer login para acessar suas compras.')
+        return redirect("login")
+     
+    cliente = Usuario.objects.get(email=request.session.get("email"))
+    compras = Venda.objects.filter(cliente=cliente).select_related('produto')
+
+    return render(request, "compras.html", {
+        "compras": compras
+    })

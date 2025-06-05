@@ -4,7 +4,7 @@ from django.urls import path
 urlpatterns = [
     path('', views.index, name = "app"),
     path('sobre-nos', views.sobreNos, name="sobreNos"),
-
+    path('dashboard', views.dashboard , name = "dashboard"),
     path('login', views.login, name = "login"),
     path('usuarios', views.exibirUsuarios, name = "exibirUsuarios"),
     path('add-usuario', views.addUsuario, name="addUsuario"),
@@ -19,5 +19,7 @@ urlpatterns = [
      
     path('grafico', views.grafico, name="grafico"),
     path('categorias', views.getCategorias, name="categorias"),
-    path('categoria/<int:id_categoria>/', views. getCategoriaID, name="categoriaID"),
+    path('categoria/<int:id_categoria>/', views.getCategoriaID, name="categoriaID"),
+    path('checkout/<int:produto_id>/', views.checkout, name='checkout'),
+    path('compras', views.compras, name="compras" ),
 ]

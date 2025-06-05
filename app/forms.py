@@ -1,10 +1,11 @@
 from django import forms
-from app.models import Usuario, Produto
+from app.models import Usuario, Produto, Venda
 
 class formUsuario(forms.ModelForm):
     class Meta:
         model = Usuario
         fields = ('nome', 'email', 'senha', 'CEP', 'logradouro', 'bairro', 'localidade', 'estado', 'numero_residencia' )
+        
         widgets = {
             'nome' : forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'nome'}),
             'email': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'email'}),
@@ -16,7 +17,7 @@ class formUsuario(forms.ModelForm):
             'estado': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Estado','id': 'estado'}),
             'numero_residencia': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Número','id': 'numero'}),
         }
-
+        
 class formLogin(forms.ModelForm):
     class Meta:
         model = Usuario
@@ -39,4 +40,16 @@ class formProduto(forms.ModelForm):
             'imagemProduto': forms.FileInput(attrs={'class': 'form-control mb-3', 'placeholder': 'descrição' }),
             'qtdeEstoque': forms.NumberInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Produto em estoque' }),
             'categoriaProduto': forms.Select(attrs={'placeholder': 'Selecione uma categoria'}),
+        }
+
+
+class formCheckout(forms.ModelForm):
+    class Meta:
+        model = Venda
+        fields = ('numero_cartao', 'validade', 'cvv')
+
+        widgets = {
+            'numero_cartao': forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': '0000 0000 0000 0000'}),
+            'validade': forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': '12/26'}),
+            'cvv': forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': '123'}),
         }
