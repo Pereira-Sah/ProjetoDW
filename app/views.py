@@ -45,7 +45,7 @@ def addUsuario(request):
                 return render(request, "add-usuario.html", {'form': formUser})
             else:
                 usuario = formUser.save(commit=False) 
-                usuario.senha = make_password(senha)  
+
                 usuario.save()                      
                 messages.success(request, 'Usuário cadastrado com sucesso!')
 
@@ -61,12 +61,42 @@ def excluirUsuario(request, id_usuario):
     return redirect("exibirUsuarios")
 
 def editarUsuario(request, id_usuario):
+    if not request.session.get("email"):
+        messages.warning(request, 'Você precisa fazer login para editar usuário.')
+        return redirect("login")
+    
     usuario = Usuario.objects.get(id=id_usuario)
-    formUser = formUsuario(request.POST or None, instance=usuario)
-    if request.POST:
+    email_antigo = usuario.email
+
+    if request.method == "POST":
+        formUser = formUsuario(request.POST, instance=usuario)
         if formUser.is_valid():
-            formUser.save()
+            senha = formUser.cleaned_data.get('senha')
+            confirmar_senha = request.POST.get('confirmar_senha')
+
+            if senha and confirmar_senha and senha != confirmar_senha:
+                messages.error(request, 'As senhas não coincidem. Por favor, tente novamente.')
+                return render(request, "editar-usuario.html", {'form': formUser})
+
+            usuario = formUser.save(commit=False)
+            if senha: 
+                usuario.senha = make_password(senha)
+
+            if request.session.get("email") == email_antigo and usuario.email != email_antigo:
+                request.session['email'] = usuario.email
+                messages.info(request, 'Seu e-mail foi atualizado na sessão.')
+
+            usuario.save()
+            messages.success(request, f'Usuário {usuario.nome} editado com sucesso!')
             return redirect("exibirUsuarios")
+        else:
+            messages.error(request, 'Erro ao editar usuário. Verifique os dados e tente novamente.')
+    else:
+       
+        formUser = formUsuario(instance=usuario)
+        formUser.fields['senha'].initial = ''
+        formUser.fields['confirmar_senha'].initial = ''
+
     return render(request, "editar-usuario.html", {'form': formUser})
 
 def login(request):

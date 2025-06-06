@@ -16,7 +16,7 @@ class formUsuario(forms.ModelForm):
         widgets = {
             'nome' : forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Nome'}),
             'email': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Email'}),
-            'senha': forms.TextInput(attrs={'class': 'form-control mb-3', 'type': 'password', 'placeholder': 'Senha'}),
+            'senha': forms.PasswordInput(attrs={'class': 'form-control mb-3', 'type': 'password', 'placeholder': 'Senha'}),
             'CEP': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'CEP', 'onblur': 'buscaCep(this.value)', 'id': 'cep'}),
             'logradouro': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Logradouro','id': 'logradouro'}),
             'bairro': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Bairro','id': 'bairro'}),
