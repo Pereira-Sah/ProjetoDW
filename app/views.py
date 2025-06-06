@@ -78,7 +78,7 @@ def login(request):
 
             try:
                 userLogin = Usuario.objects.get(email=_email)
-                if check_password(_senha, userLogin.senha):
+                if (_senha, userLogin.senha):
                     request.session.set_expiry(timedelta(seconds=600))
                     request.session['email'] = _email
 
@@ -163,6 +163,40 @@ def grafico(request):
     uri = 'data:image/png;base64,' + urllib.parse.quote(string)
 
     return render (request, 'grafico.html', {'dados':uri})
+
+
+def grafico_vendas(request):
+    if not request.session.get("email"):
+        messages.warning(request, 'Você precisa fazer login para acessar os gráficos.')
+        return redirect("login")
+
+    vendas = Venda.objects.all()
+    vendas_por_data = {}
+
+    for venda in vendas:
+        data_str = venda.data_compra.strftime("%Y-%m-%d")  
+        vendas_por_data[data_str] = vendas_por_data.get(data_str, 0) + float(venda.preco_venda)
+
+    datas = list(vendas_por_data.keys())
+    totais = list(vendas_por_data.values())
+
+    fig, ax = plt.subplots()
+    ax.plot(datas, totais, marker='o', linestyle='-',  color='pink')
+    ax.set_title("Total de Vendas por Dia")
+    ax.set_xlabel("Data")
+    ax.set_ylabel("Total R$")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    string = base64.b64encode(buf.read())
+    uri = 'data:image/png;base64,' + urllib.parse.quote(string)
+
+    return render(request, 'grafico-vendas.html', {'dados': uri})
+
+
 
 @api_view(['GET','POST'])
 def getCategorias(request):

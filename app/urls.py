@@ -17,7 +17,7 @@ urlpatterns = [
     path('listar-produtos', views.listarProdutos, name="listarProdutos" ),
     path('excluir-produto/<int:id_produto>', views.excluirProduto, name="excluirProduto" ),
     path('editar-produto/<int:id_produto>', views.editarProduto, name="editarProduto" ),
-     
+    path('grafico-vendas', views.grafico_vendas, name="graficoVendas" ),
     path('grafico', views.grafico, name="grafico"),
     path('categorias', views.getCategorias, name="categorias"),
     path('categoria/<int:id_categoria>/', views.getCategoriaID, name="categoriaID"),
