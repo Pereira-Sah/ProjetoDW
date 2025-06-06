@@ -22,7 +22,21 @@
             <a href="{% url 'app' %}">Home</a>
             <a href="{% url 'sobreNos' %}">Sobre Nós</a>
             <a href="{% url 'cardsProdutos' %}">Produtos</a>
-            {% block 'botão'%}{% endblock %}
+            {% if request.session.email %}
+              <a  href="{% url 'dashboard' %}">Dashboard</a>
+            {% endif %}
+              <form class="d-flex" role="search">
+      {% if request.session.email %}
+        <button class="btn_entrar" type="submit" id="btn-logout">
+          <a href="{% url 'logout' %}">Logout</a>
+        </button>
+      {% else %}
+        <button class="btn_entrar" type="submit" id="btn-login">
+          <a href="{% url 'login' %}">Login</a>
+        </button>
+      {% endif %}
+
+          </form>
         </div>
     </nav>
 

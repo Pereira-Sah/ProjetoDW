@@ -31,16 +31,28 @@ def exibirUsuarios(request):
 def addUsuario(request):
     formUser = formUsuario(request.POST or None)        
     if request.POST:
+
         if formUser.is_valid():
-            email = formUser.cleaned_data['email']
+            email = formUser.cleaned_data.get('email')
+            senha = formUser.cleaned_data.get('senha')
+            confirmar_senha = request.POST.get('confirmar_senha') 
+            
             if Usuario.objects.filter(email=email).exists():
-             messages.error(request, 'Este e-mail já está cadastrado.')
+                messages.error(request, 'Email já cadastrado. Por favor, use outro email.')
+                return render(request, "add-usuario.html", {'form': formUser})
+            elif senha != confirmar_senha:
+                messages.error(request, 'As senhas não coincidem. Por favor, tente novamente.')
+                return render(request, "add-usuario.html", {'form': formUser})
             else:
-                 formUser.save()
-                 messages.success(request, 'Usuário cadastrado com sucesso!')
-                 return redirect("login")
+                usuario = formUser.save(commit=False) 
+                usuario.senha = make_password(senha)  
+                usuario.save()                      
+                messages.success(request, 'Usuário cadastrado com sucesso!')
+
+                return redirect("login")
         else:
             messages.error(request, 'Erro ao cadastrar usuário. Verifique os dados e tente novamente.')
+    
     return render(request, "add-usuario.html", {'form':formUser})
 
 def excluirUsuario(request, id_usuario):
@@ -107,9 +119,9 @@ def editarProduto(request, id_produto):
 
 def cardsProdutos(request):
     listProdutos = requests.get("https://fakestoreapi.com/products").json()
-    produtos = Produto.objects.select_related('categoria').all()
+    produtos = Produto.objects.all()
     return render(request, "cards-produtos.html", {'produtos': listProdutos, 'prods': produtos})
-    return render(request, "cards-produtos.html", {'produtos': listProdutos})
+    
 
 def dashboard(request):
     _email = request.session.get("email")
@@ -233,3 +245,11 @@ def compras(request):
     return render(request, "compras.html", {
         "compras": compras
     })
+
+def logout(request):
+    if not request.session.get("email"):
+        messages.warning(request, 'Você precisa fazer login para fazer logout.')
+        return redirect("login")
+    request.session.flush()
+    messages.info(request, "Logout realizado com sucesso.")
+    return redirect("login")
