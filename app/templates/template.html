@@ -22,7 +22,7 @@
             <a href="{% url 'app' %}">Home</a>
             <a href="{% url 'sobreNos' %}">Sobre nós</a>
             <a href="{% url 'listarProdutos' %}">Produtos</a>
-            <a href="{% url 'login' %}"><button class="btn_entrar">Entrar</button></a>
+            {% block 'botão'%}{% endblock %}
         </div>
     </nav>
 
