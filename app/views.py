@@ -184,39 +184,39 @@ def getCategoriaID(request, id_categoria):
         categoria.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-def checkout(request, id):
+
+def checkout(request, produto_id):
     if not request.session.get("email"):
         return redirect("login")
 
-    response = requests.get(f"https://fakestoreapi.com/products/{id}")
-    if response.status_code != 200:
-        messages.error(request, "Produto não encontrado.")
-        return redirect("cards-produtos")
-
-    produto = response.json() 
-
+    produto = Produto.objects.get(id=produto_id)
     cliente = Usuario.objects.get(email=request.session.get("email"))
 
     if request.method == 'POST':
         form = formCheckout(request.POST)
+
         if form.is_valid():
             venda = Venda(
                 cliente=cliente,
-                produto_id=id,  
-                preco_venda=produto['price'],
+                produto=produto,
+                preco_venda=produto.precoProduto,
                 numero_cartao=form.cleaned_data.get('numero_cartao'),
                 validade=form.cleaned_data.get('validade'),
                 cvv=form.cleaned_data.get('cvv'),
-                nome_produto=produto['title'],  
-                imagem_url=produto['image'],   
             )
             venda.save()
-
             messages.success(request, 'Compra realizada com sucesso!')
+            # Atualiza o estoque do produto 
+            produto.qtdeEstoque -= 1
+            produto.save()
             return redirect("compras")
         else:
             messages.error(request, 'Erro ao processar o pagamento. Verifique os dados e tente novamente.')
-
+            return render(request, "checkout.html", {
+                "produto": produto,
+                "cliente": cliente,
+                "form": form
+            })
     else:
         form = formCheckout()
 
@@ -225,6 +225,7 @@ def checkout(request, id):
         "cliente": cliente,
         "form": form
     })
+
 
 def compras(request):
     if not request.session.get("email"):
@@ -237,11 +238,3 @@ def compras(request):
     return render(request, "compras.html", {
         "compras": compras
     })
-
-
-def logout_view(request):
-    try:
-        del request.session["email"]
-    except KeyError:
-        pass
-    return redirect("login")
