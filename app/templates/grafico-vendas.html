@@ -3,16 +3,15 @@
 {% block 'titulo' %} Estoque {% endblock %}
 
 {% block 'main' %}
-<div class="caixa-grafico" style="       display: flex;
-                                        flex-direction: column;
-                                        align-items: center;
-                                        justify-content: center;
-                                        margin-top: 2em;
-                                        gap: 1em;">
+<div class="caixa-grafico" style=" display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 2em; gap: 1em;">
 
-<a href="{% url 'dashboard' %}"><button id="btnVoltar" class="btn ">Voltar</button></a>
+    <div class="position-relative mb-4 mt-6" style="width: 100%;">
+        <a href="{% url 'dashboard' %}" class="btn_voltar position-absolute start-0" style="left:0;">
+            Voltar
+        </a>
+        <h2 class="text-center mb-0">Gráfico de Vendas por Dia</h2>
+    </div>
 
-    <h1>Gráfico de Vendas por Dia</h1>
     <img src="{{ dados }}" alt="Vendas" style="max-width: 100%; height: auto; border: 5px solid pink; border-radius: 12px;">
 </div>
 

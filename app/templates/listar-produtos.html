@@ -6,15 +6,16 @@
 
 {% block 'main' %}
 <div class="position-relative mb-4 mt-6" style="width: 100%;">
-    <button href="{% url 'dashboard' %}" class="btn_voltar position-absolute start-0" style="left:0;">
+    <a href="{% url 'dashboard' %}" class="btn_voltar position-absolute start-0" style="left:0;">
         Voltar
-    </button>
+    </a>
     <h2 class="text-center mb-0">Lista de Produtos</h2>
 </div>
 
 <a href="{% url 'cadastrarProduto' %}" class="btn_cadastrar d-flex justify-content-center align-items-center mx-auto mb-4">
    + Cadastrar Produto
 </a>
+
 <table class="table table-hover p-3 m-auto" style="width: 40%;">
     <tr id="trUsuarios">
         <th>Foto</th>
@@ -40,10 +41,10 @@
                 {% endif %}
             </td>
             <td>
-                <a href="{% url 'excluirProduto' produto.id %}" class="btn btn-danger btn-sm" id="btnExcluir">Excluir</a>
+                <a href="{% url 'excluirProduto' produto.id %}" class="btn-acao btn-excluir" id="btnExcluir">Excluir</a>
             </td>
             <td>
-                <a href="{% url 'editarProduto' produto.id %}" class="btn btn-warning btn-sm" id="btnEditar">Editar</a>
+                <a href="{% url 'editarProduto' produto.id %}" class="btn-acao btn-editar" id="btnEditar">Editar</a>
             </td>
         </tr>
     {% endfor %}

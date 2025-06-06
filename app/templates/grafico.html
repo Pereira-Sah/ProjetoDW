@@ -1,17 +1,17 @@
 {% extends 'template.html' %}
+{% load static %}
 
 {% block 'titulo' %} Estoque {% endblock %}
 
 {% block 'main' %}
-<a href="{% url 'dashboard' %}"><button id="btnVoltar" class="btn ">Voltar</button></a>
-<div class="caixa-grafico" style="       display: flex;
-                                        flex-direction: column;
-                                        align-items: center;
-                                        justify-content: center;
-                                        margin-top: 2em;
-                                        gap: 1em;">
+<div class="position-relative mb-4 mt-6" style="width: 100%;">
+    <a href="{% url 'dashboard' %}" class="btn_voltar position-absolute start-0" style="left:0;">
+        Voltar
+    </a>
+    <h2 class="text-center mb-0">Gráfico de Produtos Disponíveis no Estoque</h2>
+</div>
 
-    <h1>Gráfico de Produtos Disponíveis no Estoque</h1>
+<div class="caixa-grafico" style=" display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 2em; gap: 1em;">
 
     <img src="{{ dados }}" alt="Estoque">
 

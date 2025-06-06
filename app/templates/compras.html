@@ -3,9 +3,12 @@
 
 {% block 'main' %}
 
-<a href="{% url 'dashboard' %}"><button id="btnVoltar" class="btn ">Voltar</button></a>
-
-<h2 class="text-center" style="margin-top: 1em; margin-bottom: 1em;">Minhas Compras 🧸</h2>
+<div class="position-relative mb-4 mt-6" style="width: 100%;">
+    <a href="{% url 'dashboard' %}" class="btn_voltar position-absolute start-0" style="left:0;">
+        Voltar
+    </a>
+    <h2 class="text-center mb-0">Minhas Compras</h2>
+</div>
 
 <table class="table table-hover p-3 m-auto" style="width: 40%;">
     <thead>

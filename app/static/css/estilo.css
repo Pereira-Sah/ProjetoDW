@@ -83,6 +83,19 @@ nav {
     border: none;
     cursor: pointer;
 }
+
+.btn_cadastrar_usuario {
+    background-color: #d492fd;
+    color: #F9FFFE;
+    margin-right: 45px; 
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 20px;
+    width: 17em;
+    border: none;
+    cursor: pointer;
+}
+
 .btn-acao {
     background-color: #d492fd;
     color: #F9FFFE !important;
@@ -261,6 +274,18 @@ h2{
     border-radius: 20px;
     border: none;
     cursor: pointer;
+    text-decoration: none;
+}
+
+/* Grafico */
+
+.caixa_grafico{
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    margin-top: 2em;
+    gap: 1em;
 }
 
 @media (max-width: 600px) {

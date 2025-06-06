@@ -29,13 +29,14 @@ class Produto(models.Model):
     imagemProduto = models.ImageField(upload_to='imagens/')
     qtdeEstoque = models.IntegerField()
     categoriaProduto = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, blank=True)
+    
 class Venda(models.Model):
     cliente = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True, blank=True)
     produto = models.ForeignKey(Produto, on_delete=models.SET_NULL, null=True, blank=True)
     preco_venda = models.DecimalField(max_digits=10, decimal_places=2)
-    numero_cartao = models.CharField(max_length = 200)
-    validade = models.CharField(max_length = 200)
-    cvv = models.CharField(max_length = 200)
+    numero_cartao = models.CharField(max_length = 16)
+    validade = models.CharField(max_length = 4)
+    cvv = models.CharField(max_length = 3)
     data_compra = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
