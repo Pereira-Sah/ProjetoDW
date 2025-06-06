@@ -23,6 +23,6 @@ urlpatterns = [
     path('categoria/<int:id_categoria>/', views.getCategoriaID, name="categoriaID"),
     path('checkout/<int:produto_id>/', views.checkout, name='checkout'),
     path('compras', views.compras, name="compras" ),
-    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+    path('logout', views.logout , name = "logout"),
 
 ]

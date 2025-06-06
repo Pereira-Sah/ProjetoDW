@@ -2,6 +2,13 @@ from django import forms
 from app.models import Usuario, Produto, Venda
 
 class formUsuario(forms.ModelForm):
+    confirmar_senha = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'form-control mb-3', 
+            'type': 'password', 
+            'placeholder': 'confirmar senha'
+        })
+    )
     class Meta:
         model = Usuario
         fields = ('nome', 'email', 'senha', 'CEP', 'logradouro', 'bairro', 'localidade', 'estado', 'numero_residencia' )
