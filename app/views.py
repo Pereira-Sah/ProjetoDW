@@ -138,7 +138,7 @@ def dashboard(request):
     if _email is None:
             messages.warning(request, 'Você precisa fazer login para acessar o dashboard.')
             return render(request, "index.html")
-    if tempo_sessao and tempo_sessao > timedelta(seconds=600) :
+    if tempo_sessao and tempo_sessao > 600:
         messages.warning(request, 'Sua sessão expirou. Por favor, faça login novamente.')
         return render(request, "index.html")
     else:

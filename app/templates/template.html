@@ -16,29 +16,22 @@
   
 </head>
 <body>
-    <nav>
-        <img src="{% static 'img/logo_iris.png' %}" alt="Logo" class="logo">
-        <div class="nav-links">
-            <a href="{% url 'app' %}">Home</a>
-            <a href="{% url 'sobreNos' %}">Sobre Nós</a>
-            <a href="{% url 'cardsProdutos' %}">Produtos</a>
-            {% if request.session.email %}
-              <a  href="{% url 'dashboard' %}">Dashboard</a>
-            {% endif %}
-              <form class="d-flex" role="search">
-      {% if request.session.email %}
-        <button class="btn_entrar" type="submit" id="btn-logout">
-          <a href="{% url 'logout' %}">Logout</a>
-        </button>
-      {% else %}
-        <button class="btn_entrar" type="submit" id="btn-login">
-          <a href="{% url 'login' %}">Login</a>
-        </button>
-      {% endif %}
-
-          </form>
-        </div>
-    </nav>
+  <nav>
+      <img src="{% static 'img/logo_iris.png' %}" alt="Logo" class="logo">
+      <div class="nav-links">
+          <a href="{% url 'app' %}">Home</a>
+          <a href="{% url 'sobreNos' %}">Sobre Nós</a>
+          <a href="{% url 'cardsProdutos' %}">Produtos</a>
+          {% if request.session.email %}
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+          {% endif %}
+          {% if request.session.email %}
+              <a href="{% url 'logout' %}" class="btn_entrar ms-3">Logout</a>
+          {% else %}
+              <a href="{% url 'login' %}" class="btn_entrar ms-3">Login</a>
+          {% endif %}
+      </div>
+  </nav>
 
     <main>
         {% block 'main' %}{% endblock %}

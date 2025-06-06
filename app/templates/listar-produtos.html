@@ -5,40 +5,47 @@
 {% block titulo %} Produtos {% endblock %}
 
 {% block 'main' %}
-<a href="{% url 'dashboard' %}"><button id="btnVoltar" class="btn ">Voltar</button></a>
+<div class="position-relative mb-4 mt-6" style="width: 100%;">
+    <button href="{% url 'dashboard' %}" class="btn_voltar position-absolute start-0" style="left:0;">
+        Voltar
+    </button>
+    <h2 class="text-center mb-0">Lista de Produtos</h2>
+</div>
 
-    <a href="{% url 'cadastrarProduto' %}" style="justify-content: center; display: flex; margin: 3em; text-decoration: none; text-align: center;"><button  id="btnEditar"> Cadastrar Produto </button> </a>
-    <table class="table table-hover p-3 m-auto" style="width: 40%;">
-        <tr id="trUsuarios">
-            
-            <th>Foto</th>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Preço</th>
-            <th>Estoque</th>
-            <th>Categoria</th>
-            <th colspan= "2">Ações</th>
-        </tr>
-        {% for produto in listarProdutos %}
-            <tr id="trProd">
-                
-                <td><img src="/media/{{ produto.imagemProduto }}"  alt=""  style="width: 100px; height: auto;"></td>
-                <td>{{produto.nomeProduto}}</td>
-                <td>{{produto.descricaoProduto}}</td>
-                <td>{{produto.precoProduto}}</td>
-                <td>{{produto.qtdeEstoque}}</td>
-                   <td>
+<a href="{% url 'cadastrarProduto' %}" class="btn_cadastrar d-flex justify-content-center align-items-center mx-auto mb-4">
+   + Cadastrar Produto
+</a>
+<table class="table table-hover p-3 m-auto" style="width: 40%;">
+    <tr id="trUsuarios">
+        <th>Foto</th>
+        <th>Nome</th>
+        <th>Descrição</th>
+        <th>Preço</th>
+        <th>Estoque</th>
+        <th>Categoria</th>
+        <th colspan="2">Ações</th>
+    </tr>
+    {% for produto in listarProdutos %}
+        <tr id="trProd">
+            <td><img src="/media/{{ produto.imagemProduto }}" alt="" style="width: 100px; height: auto;"></td>
+            <td>{{produto.nomeProduto}}</td>
+            <td style="min-width: 220px;">{{produto.descricaoProduto}}</td>
+            <td>{{produto.precoProduto}}</td>
+            <td>{{produto.qtdeEstoque}}</td>
+            <td>
                 {% if produto.categoriaProduto %}
                     {{ produto.categoriaProduto }}
                 {% else %}
                     Sem categoria
                 {% endif %}
-                </td>
-                <td><a href="{% url 'excluirProduto' produto.id %}"> <button  id="btnExcluir"> Excluir </button> </a></td>
-               <td><a href="{% url 'editarProduto' produto.id %}"> <button id="btnEditar"> Editar</button> </a></td> 
-            
-
-            </tr>
-        {% endfor %}
-    </table>
+            </td>
+            <td>
+                <a href="{% url 'excluirProduto' produto.id %}" class="btn btn-danger btn-sm" id="btnExcluir">Excluir</a>
+            </td>
+            <td>
+                <a href="{% url 'editarProduto' produto.id %}" class="btn btn-warning btn-sm" id="btnEditar">Editar</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
 {% endblock %}

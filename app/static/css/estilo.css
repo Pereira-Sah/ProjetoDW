@@ -9,7 +9,7 @@ body {
 a, p, button {
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 400;
+    font-weight: 600
 }
 
 h1, h2{
@@ -43,9 +43,9 @@ nav {
 }
 
 .logo {
-    width: 14em;
-    height: 14em;
-    margin-left: 20px;
+    width: 8em;
+    height: 3.5em;
+    margin-left: 30px;
 }
 
 .nav-links {
@@ -55,30 +55,31 @@ nav {
 
 .nav-links a {
     margin-left: 40px;
-    color: #cf83fe;
+    color: #d492fd;
     text-decoration: none;
     font-size: 20px;
 }
 
 .btn_entrar {
-    background-color: #cf83fe;
-    color: #F9FFFE;
-    margin-right: 45px; 
+    background-color: #d492fd;
+    color: #F9FFFE !important;
+    margin-right: 40px; 
+    margin-left: 40px; 
     padding: 10px;
     font-size: 20px;
-    border-radius: 30px;
+    border-radius: 20px;
     border: none;
     cursor: pointer;
 }
 
 .btn_cadastrar {
-    background-color: #cf83fe;
+    background-color: #d492fd;
     color: #F9FFFE;
     margin-right: 45px; 
     padding: 10px;
     font-size: 20px;
     border-radius: 20px;
-    width: 15em;
+    width: 14em;
     border: none;
     cursor: pointer;
 }
@@ -138,8 +139,7 @@ footer {
 
 .nav-links a:hover{
     color: #ba4cff;
-    font-weight: 500;
-    transition: color 1.2s;
+    transition: color 0.8s;
 }
 
 .btn_entrar:hover,
@@ -147,8 +147,7 @@ footer {
 .link_produtos:hover,
 .btn_comprar:hover{
     background-color: #ba4cff;
-    color: #F9FFFE;
-    transition: background-color 0.4s, color 0.4s;
+    transition: background-color 0.8s;
 }
 
 .fas{
@@ -174,7 +173,7 @@ h2{
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.6s, box-shadow 0.6s;
     margin-bottom: 24px;
 }
 
@@ -203,7 +202,7 @@ h2{
 
 .card-price {
     font-size: 1.6em;
-    color: #cf83fe;
+    color: #d492fd;
     font-weight: bold;
 }
 
@@ -223,13 +222,27 @@ h2{
 }
 
 .btn_comprar{
-    background-color: #cf83fe;
+    background-color: #d492fd;
     color: #ffffff;
     padding: 10px 15px;
     text-align: center;
     border-radius: 5px;
     font-size: 18px;
     text-decoration: none;
+}
+
+/* Dashboard */
+
+.btn_voltar {
+    background-color: #d492fd;
+    color: #F9FFFE !important;
+    margin-right: 40px; 
+    margin-left: 40px; 
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
 }
 
 @media (max-width: 600px) {
