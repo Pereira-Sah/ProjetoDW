@@ -3,52 +3,61 @@
 {% load static %}
 
 {% block titulo %} Novo Usuário {% endblock %}
+{% block 'botão'%} <a href="{% url 'login' %}"><button class="btn_entrar">Entrar</button></a> {% endblock %}
 
 {% block 'main' %}
 
-<div class="users d-flex flex-column align-items-center justify-content-center mt-2 mb-2">
+<div class="container mt-5" style="max-width: 400px;">
     <img src="{% static 'assets/users.png' %}" alt="">
-        <h1 id="h1Usuarios">Cadastrar Usuário</h1>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <h1 class="card-title text-center mb-4">Cadastro de Usuário</h1>
+
+            <form method="post" action="{% url 'addUsuario' %}" id="ContainerLogin">
+                {% csrf_token %}
+                {% comment %} <div class="form-group"> {% endcomment %}
+
+                {{ form.nome }}
+                {{ form.email }}
+                {{ form.senha }}
+
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.CEP }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.logradouro }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.bairro }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.localidade }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.estado }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.numero_residencia }}
+                    </div>
+                </div>    
+                <div class="d-grid">
+                    <button type="submit" class="btn_cadastrar">Cadastrar</button>
+                </div>    
+
+                <div class="text-center mt-3">
+                    Já tem cadastro? <a href="{% url 'login' %}">Faça Login</a>
+                </div>
+
+                {% comment %} </div> {% endcomment %}
+            </form>
+        </div>
     </div>
-
-
-<div class="container d-flex align-items-center justify-content-center" >
-    <form method="post" action="{% url 'addUsuario' %}" id="ContainerLogin">
-        {% csrf_token %}
-        {% comment %} <div class="form-group"> {% endcomment %}
-
-    {{ form.nome }}
-    {{ form.email }}
-    {{ form.senha }}
-
-    <div class="row">
-        <div class="col-md-6">
-            {{ form.CEP }}
-        </div>
-        <div class="col-md-6">
-            {{ form.logradouro }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            {{ form.bairro }}
-        </div>
-        <div class="col-md-6">
-            {{ form.localidade }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            {{ form.estado }}
-        </div>
-        <div class="col-md-6">
-            {{ form.numero_residencia }}
-        </div>
-    </div>          <a href="{% url 'login' %}" class="CadastrarLink">Já tem uma conta ? Faça Login</a>
-
-        <input type="submit" value="Cadastrar" id="btnCadastrar">
-        {% comment %} </div> {% endcomment %}
-    </form>
 </div>
 
 {% if messages %}

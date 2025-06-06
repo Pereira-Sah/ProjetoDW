@@ -1,8 +1,8 @@
 {% extends "template.html" %}
 {% load static %}
 
-{% block 'titulo'%}Iris Beauty{% endblock %}
-
+{% block 'titulo'%}Iris Cosméticos{% endblock %}
+{% block 'botão'%}<a href="{% url 'login' %}"><button class="btn_entrar">Entrar</button></a>{% endblock %}
 {% block 'main' %}
 <div class="container-fluid d-flex align-items-center justify-content-center flex-column flex-md-row mt-custom">
     <img src="{% static 'img/cosmeticos.jpg' %}" alt="Produtos" class="img-index mb-4 mb-md-0">

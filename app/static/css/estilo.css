@@ -78,6 +78,7 @@ nav {
     padding: 10px;
     font-size: 20px;
     border-radius: 20px;
+    width: 15em;
     border: none;
     cursor: pointer;
 }

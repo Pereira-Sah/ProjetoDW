@@ -20,8 +20,8 @@
         <img src="{% static 'img/logo_iris.png' %}" alt="Logo" class="logo">
         <div class="nav-links">
             <a href="{% url 'app' %}">Home</a>
-            <a href="{% url 'sobreNos' %}">Sobre nós</a>
-            <a href="{% url 'listarProdutos' %}">Produtos</a>
+            <a href="{% url 'sobreNos' %}">Sobre Nós</a>
+            <a href="{% url 'cardsProdutos' %}">Produtos</a>
             <a href="{% url 'login' %}"><button class="btn_entrar">Entrar</button></a>
         </div>
     </nav>
@@ -42,7 +42,7 @@
 
             <ul class="nav col-md-4 justify-content-end">
                     <li class="nav-item"><a href="{% url 'app' %}" class="nav-link px-2 text-muted">Início</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Sobre Nós</a></li>
+                    <li class="nav-item"><a href="{% url 'sobreNos' %}" class="nav-link px-2 text-muted">Sobre Nós</a></li>
                     <li class="nav-item"><a href="{% url 'cardsProdutos' %}" class="nav-link px-2 text-muted">Produtos</a></li>
                     <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Suporte</a></li>
             </ul>
