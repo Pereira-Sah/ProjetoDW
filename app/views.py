@@ -107,13 +107,8 @@ def editarProduto(request, id_produto):
 
 def cardsProdutos(request):
     listProdutos = requests.get("https://fakestoreapi.com/products").json()
-    try:
-        response = requests.get("https://fakestoreapi.com/products", timeout=5)  # timeout de 5 segundos
-        listProdutos = response.json()
-    except requests.exceptions.RequestException:
-        messages.error(request, "Não foi possível carregar os produtos no momento. Tente novamente mais tarde.")
-        listProdutos = [] 
-
+    produtos = Produto.objects.select_related('categoria').all()
+    return render(request, "cards-produtos.html", {'produtos': listProdutos, 'prods': produtos})
     return render(request, "cards-produtos.html", {'produtos': listProdutos})
 
 def dashboard(request):
