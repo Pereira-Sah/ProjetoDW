@@ -5,7 +5,7 @@ from django.template import loader
 from django.contrib import messages
 from app.models import Usuario, Produto, Categoria, Venda
 from app.forms import formUsuario, formProduto, formLogin, formCheckout
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 import requests
 import io, urllib, base64
 import matplotlib.pyplot as plt
@@ -75,18 +75,27 @@ def login(request):
         if frmLogin.is_valid():
             _email = frmLogin.cleaned_data.get('email')
             _senha = frmLogin.cleaned_data.get('senha')
+
             try:
-                userLogin = Usuario.objects.get(email=_email,senha= _senha)
-                if userLogin is not None:
+                userLogin = Usuario.objects.get(email=_email)
+                if check_password(_senha, userLogin.senha):
                     request.session.set_expiry(timedelta(seconds=600))
-                   
                     request.session['email'] = _email
+
                     tempo_sessao = timedelta(seconds=600)
                     tempo_sessao_segundos = tempo_sessao.total_seconds()
-                    request.session['tempo_sessao_segundos '] =  tempo_sessao_segundos
+
+                    request.session['tempo_sessao_segundos'] = tempo_sessao_segundos
+                    messages.success(request, 'Login efetuado com sucesso!')
                     return redirect("dashboard")
+                
+                else:
+                    messages.error(request, 'Email ou senha inválidos.')
+                    return render(request, "login.html", {'form': frmLogin})
+                
             except Usuario.DoesNotExist:
-                return render(request, "login.html")
+                messages.error(request, 'Email ou senha inválidos.')
+                return render(request, "login.html", {'form': frmLogin})
     return render(request, "login.html", {'form': frmLogin})
 
 def cadastrarProduto(request):
